@@ -57,7 +57,7 @@ def get_args_and_set_values(): # Getting the args
                 die.die("Go to supply pls ignore this error :DDDDDDDDD.") # Error out to ask for the user (yes this is actually working so im not gonna touch it beacuse if it works don't fix it)
     except:
         print("No arguments supplied... Asking for input... ")
-        problem_out,num = int(input("Enter a number: "))
+        num = int(input("Enter a number: "))
         complexity = int(input("Enter a complexity (1-infinity): "))
 get_args_and_set_values()
 i,action,problem,problem_out=0,0,str(num),num # Variable decleration
