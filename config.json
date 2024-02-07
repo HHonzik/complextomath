@@ -1,5 +1,5 @@
 {
-    "multiplication": true,
+    "multiplication": false,
     "devision": true,
     "addition": true,
     "subtraction": true,
