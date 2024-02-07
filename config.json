@@ -1,0 +1,9 @@
+{
+    "multiplication": true,
+    "devision": true,
+    "addition": true,
+    "subtraction": true,
+    "LOG_all_problems": true,
+    "auto_copy": true,
+    "pause_on_end": 1
+}
