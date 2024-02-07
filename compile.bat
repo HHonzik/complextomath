@@ -1,3 +1,4 @@
 @pyinstaller -F complextomath.py
 @rd /s /q build
-@mv dist compiled
+@move dist compiled
+@del complextomath.spec
