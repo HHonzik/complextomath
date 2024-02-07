@@ -63,7 +63,7 @@ get_args_and_set_values()
 i,action,problem,problem_out=0,0,str(num),num # Variable decleration
 
 def handle_devision_and_multiplication():
-    global problem,problem_out,i,action,num,last_operator,problem_out_old,randnum_str,randnum,action
+    global problem,problem_out,i,action,num,last_operator,problem_out_old,randnum_str,randnum,action,problem_old,problem_out_old
     if problem[-1] == ")":
         problem_last_char = problem[-2]
         offset=2
@@ -96,8 +96,10 @@ def handle_devision_and_multiplication():
     except ZeroDivisionError:
         if LOG_all_problems:
             print("LOL it did a something / 0 thingy so lets ignore that operation like it didn't happen :DDDDD.")
+            problem = problem_old
         i-=1
 while True: # Yes this is important too
+    problem_old = problem
     problem_out_old = problem_out
     last_operator = action
     i+=1
@@ -117,10 +119,22 @@ while True: # Yes this is important too
     if action == 1 and addition == True:
 
         problem = problem + "+" + randnum_str
-        problem_out =  eval(problem)
+        try:
+            problem_out =  eval(problem)
+        except ZeroDivisionError:
+            if LOG_all_problems:
+                print("LOL it did a something + 0 thingy so lets ignore that operation like it didn't happen :DDDDD.")
+            i-=1
+            problem = problem_old
     elif action == 2 and subtraction == True:
         problem = problem + "-" + randnum_str
-        problem_out = eval(problem)
+        try:
+            problem_out = eval(problem)
+        except ZeroDivisionError:
+            if LOG_all_problems:
+                print("LOL it did a something + 0 thingy so lets ignore that operation like it didn't happen :DDDDD.")
+            i-=1
+            problem = problem_old
     elif action == 3 and multiplication == True:
         handle_devision_and_multiplication()
     elif action == 4 and devision == True:
