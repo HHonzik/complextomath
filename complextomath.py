@@ -71,7 +71,7 @@ def handle_devision_and_multiplication():
         problem_last_char = problem[-1]
         offset=1
     problem_last_num = int(problem_last_char)
-    if action == 3 and multiplication == True:
+    if action == 3:
         str_action = "*"
         last_part_new_problem_out = (problem_last_num * randnum)
     else:
@@ -79,36 +79,37 @@ def handle_devision_and_multiplication():
         last_part_new_problem_out = (problem_last_num / randnum)
     try: # Just some junk code to handle all of the operations
         if last_operator == 1 and addition == True:
-            problem_out = problem_out_old+last_part_new_problem_out
             problem = problem + "+(" + problem_last_char + str_action + randnum_str + ")"
+            problem_out = eval(problem)
         elif last_operator == 2 and subtraction == True:
-            problem_out = problem_out_old-last_part_new_problem_out
             problem = problem + "-(" + problem_last_char + str_action + randnum_str + ")"
-        elif last_operator == 3 and multiplication == True:
-            problem_out = problem_out_old*last_part_new_problem_out
+            problem_out = eval(problem)
+            
+        elif last_operator == 3:
             problem = problem + "*(" + problem_last_char + str_action + randnum_str + ")"
+            problem_out = eval(problem)
+            
         elif last_operator == 4: # Yes beacuse this ran, we don't need to check if its enabled
-            problem_out = problem_out_old/last_part_new_problem_out
             problem = problem + "/(" + problem_last_char + str_action + randnum_str + ")"
+            problem_out = eval(problem)
+            
     except ZeroDivisionError:
         if LOG_all_problems:
             print("LOL it did a something / 0 thingy so lets ignore that operation like it didn't happen :DDDDD.")
-            i-=1
+        i-=1
 while True: # Yes this is important too
     problem_out_old = problem_out
     last_operator = action
     i+=1
-    if i > complexity:
-        for z in range(3):
-            lefttocorrect = problem_out - num
+    if i == complexity:
+        for z in range(10):
+            lefttocorrect = eval(problem) - num
+            if lefttocorrect == 0:
+                break
             problem = problem + "-" + str(lefttocorrect)
-            problem_out = problem_out - lefttocorrect
+            problem_out = eval(problem)
         break
     action = random.randint(1, 4)
-    if random.randint(1,10) > 5:
-        action = 4
-        if i == 1:
-            last_operator = 4
     randnum = int(random.randint(1, complexity))
     if randnum < 1:
         randnum = 1
@@ -116,10 +117,10 @@ while True: # Yes this is important too
     if action == 1 and addition == True:
 
         problem = problem + "+" + randnum_str
-        problem_out = problem_out + randnum
+        problem_out =  eval(problem)
     elif action == 2 and subtraction == True:
         problem = problem + "-" + randnum_str
-        problem_out = problem_out - randnum
+        problem_out = eval(problem)
     elif action == 3 and multiplication == True:
         handle_devision_and_multiplication()
     elif action == 4 and devision == True:
